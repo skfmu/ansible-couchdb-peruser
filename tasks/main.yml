@@ -10,7 +10,6 @@
         system=yes
         state=present
 
-
 - name: Add couchdb user to sudoers
   action: lineinfile
           dest=/etc/sudoers
@@ -73,6 +72,13 @@
            creates={{ couchdb.dest }}
   tags: couchdb
 
+- name: ensure couchdb data directory exist
+  file: path={{ couchdb.database_dir }}
+        owner=couchdb
+        group=couchdb
+        state=directory
+        mode=0700
+
 - name: ensure couchdb directories exist
   file: path={{ couchdb.dest }}/var/{{ item }}/couchdb
         owner=couchdb
@@ -85,7 +91,7 @@
   tags: couchdb
 
 - name: configure couchdb
-  copy: src=templates/couchdb/local.ini dest={{ couchdb.dest }}/etc/couchdb/local.ini
+  template: src={{ couchdb.ini }} dest={{ couchdb.dest }}/etc/couchdb/local.ini
   tags: couchdb
 
 - name: ensure couchdb plugins dir exists

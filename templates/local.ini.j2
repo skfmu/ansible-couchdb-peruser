@@ -5,12 +5,13 @@
 ; overwritten on server upgrade.
 
 [couchdb]
+database_dir = {{ couchdb.database_dir }}
 ;max_document_size = 4294967296 ; bytes
 uuid = 63bce3f1acdced385d16e36f9a6fbf54
 
 [httpd]
-;port = 5984
-bind_address = 0.0.0.0
+port = {{ couchdb.port }}
+bind_address = {{ couchdb.host }}
 ; Options for the MochiWeb HTTP server.
 ;server_options = [{backlog, 128}, {acceptor_pool_size, 16}]
 ; For more socket options, consult Erlang's module 'inet' man page.

@@ -21,12 +21,13 @@ Example Playbook
 
     - hosts: servers
       roles:
-        - role: couchdb-peruser
+        - role: ansible-couchdb-peruser
           couchdb:
             version: 1.6.0
             src: "/home/couchdb/src/couchdb"
             dest: "/home/couchdb/opt/couchdb"
-            ini: "templates/couchdb/local.ini"
+            database_dir: "/var/lib/couchdb"
+            ini: "local.ini.j2"
             repo: "git://github.com/apache/couchdb.git"
             host: "0.0.0.0"
             port: 5984
